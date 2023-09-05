@@ -1,104 +1,147 @@
-# Assignment_2.
+# Assignment-2.
 """
-            Write a python program to compute following computation on matrix:
-            a) Addition of two matrices
-            b) Subtraction of two matrices
-            c) Multiplication of two matrices
-            d) Transpose of a matrix
+    Write a python program to compute following computation on matrix:
+        a) Addition of two matrices.
+        b) Subtraction of two matrices.
+        c) Multiplication of two matrices.
+        d) Transpose of a matrix.
 """
 
 
-# Defining the functions.
+def fact(n):
+    if (n == 1):
+        return 1
+    else:
+        return n * fact(n - 1)
 
-def createMat(mat):
-    mat1 = [[], [], []]
-    for i in range(0, len(mat)):
-        for j in range(0, len(mat)):
-            mat1[i].append(int(input("Enter number: ")))
-    return mat1
+
+def fibo(n):
+    a = 0
+    b = 1
+    sum = 0
+    if n == 1:
+        print(a)
+    elif n == 2:
+        print(b)
+    else:
+        for i in range(0, n, 1):
+            print(sum, end=" ")
+            sum = a + b
+            a = b
+            b = sum
+
+
+def printMat(mat):
+    if mat != None:
+        for i in mat:
+            print(i)
+    else:
+        return
 
 
 def addMat(mat1, mat2):
-    mat3 = [[], [], []]
-    for i in range(0, len(mat1)):
-        for j in range(0, len(mat2)):
-            mat3[i].append(mat1[i][j] + mat2[i][j])
-    return mat3
+    if len(mat1[0]) != len(mat2)):  # checking the no.of rows and columns of both matrix
+        print("Addition cannot be performed.")
+    else:
+        mat3 = []
+        for i in range(0, len(mat1)):
+            subMat1 = []
+            for j in range(0, len(mat1[0])):
+                subMat1.append(mat1[i][j] + mat2[i][j])
+            mat3.append(subMat1)
+        return mat3
 
 
 def subMat(mat1, mat2):
-    mat3 = [[], [], []]
-    for i in range(0, len(mat1)):
-        for j in range(0, len(mat2)):
-            mat3[i].append(mat1[i][j] - mat2[i][j])
-    return mat3
+    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):  # checking the no.of rows and columns of both matrix
+        print("Subtraction cannot be performed.")
+    else:
+        mat3 = []
+        for i in range(0, len(mat1)):
+            subMat2 = []
+            for j in range(0, len(mat1[0])):
+                subMat2.append(mat1[i][j] - mat2[i][j])
+            mat3.append(subMat2)
+        return mat3
 
 
-def multiUtil(mat1, mat2, x, y):
-    product=0;
-    for i in range(0, len(mat1)):
-        product+=mat1[x][i]*mat2[i][y]
-    return product
-
-
-def multiMat(mat1, mat2):
-    mat3=[[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
-    for x in range(0, len(mat1)):
-        for y in range(0, len(mat1)):
-            mat3[x][y]=multiUtil(mat1, mat2, x, y)
-    return mat3
-
-def transpose(mat):
-    for i in range(0, int(len(mat) / 2)):
-        for j in range(0, len(mat)):
-            if i != j:  # swapping the elements
-                temp = mat1[i][j]
-                mat[i][j] = mat[j][i]
-                mat[j][i] = temp
+def createMat(mat):
+    row = int(input("Enter no.of rows: "))
+    col = int(input("Enter no.of columns: "))
+    for i in range(0, row):
+        subMat1 = []
+        for j in range(0, col):
+            subMat1.append(int(input("Enter number: ")))
+        mat.append(subMat1)
+        print()
     return mat
 
 
-# ----------------------------------------------------------------------------->
+def multiUtil(mat1, mat2, i, j):
+    prd = 0
+    for k in range(0, len(mat1)):
+        prd += mat1[i][k] * mat2[k][j]
+    return prd
 
-# Main Logic.
 
-mat1 = [[], [], []]
-mat2 = [[], [], []]
+def multiMat(mat1, mat2):
+    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
+        print("Multiplication cannot be performed.")
+    else:
+        mat3 = []
+        for i in range(0, len(mat1)):
+            subMat3 = []
+            for j in range(0, len(mat1[0])):
+                subMat3.append(multiUtil(mat1, mat2, i, j))
+            mat3.append(subMat3)
+        return mat3
 
-mat1 = createMat(mat1)  # Creating matrix.
-mat2 = createMat(mat2)  # Creating matrix.
 
-print("Matrix 1:")  # Printing mat1
-for i in mat1:
-    print(i)
+def transpose(mat):
+    if len(mat) != len(mat[0]):
+        print("Transpose cannot be calculated.")
+    else:
+        for i in range(0, int(len(mat) / 2)):
+            for j in range(0, len(mat[0])):
+                if (i != j):
+                    temp = mat[i][j]
+                    mat[i][j] = mat[j][i]
+                    mat[j][i] = temp
+                else:
+                    continue
+        return mat
 
-print("Matrix 2:")  # Printing mat2
-for i in mat2:
-    print(i)
 
-mat3 = addMat(mat1, mat2)  # Adding two matrix.
-mat4 = subMat(mat1, mat2)  # Subtracting two matrix.
-mat5= multiMat(mat1, mat2)  # Multiplying two matrix.
+# -------------------------------------------------->
 
-mat6 = transpose(mat1)  # Calculating transpose of matrix
-mat7 = transpose(mat2)  # Calculating transpose of matrix
 
-print("Matrix after addition is: ")
-for i in mat3:
-    print(i)
+# #	Printing fibonacci series terms till nth term
+# n=int(input("Enter the no. of terms of fibonacci series that you want to print: "))
+# fibo(n)
+# print("Thankyou!!!")
 
-print("Matrix after subtraction is: ")
-for i in mat4:
-    print(i)
+# # Calculating and printing the factorial of n.
+# n=int(input("Enter the value of n: "))
+# print("The factorial of", n, "is", fact(n))	
 
-print("Matrix after multiplication is: ")
-for i in mat5:
-    print(i)
+# Adding two matrix.
+mat1 = []
+mat2 = []
+print("Inputs for matrix 1")
+mat1 = createMat(mat1)
+print("Inputs for matrix 2")
+mat2 = createMat(mat2)
+mat3 = addMat(mat1, mat2)
+mat4 = subMat(mat1, mat2)
+mat5 = multiMat(mat1, mat2)
 
-print("Transpose of matrix 1 is: ")
-for i in mat6:
-    print(i)
+print("Addition of two matrices is: ")
+printMat(mat3)
+print("Subtraction of two matrices is: ")
+printMat(mat4)
 
-print("Transpose of matrix 2 is: ")
-for i in mat7:
-    print(i)
+print("Multiplication of two matrix is: ")
+printMat(mat5)
+
+print("The transpose of the mat1 is: ")
+printMat(transpose(mat1))
