@@ -39,10 +39,23 @@ def printMat(mat):
         return
 
 
+def createMat(mat):
+    row = int(input("Enter no.of rows: "))
+    col = int(input("Enter no.of columns: "))
+    for i in range(0, row):
+        subMat1 = []
+        for j in range(0, col):
+            subMat1.append(int(input("Enter number: ")))
+        mat.append(subMat1)
+        print()
+    return mat
+
+
 def addMat(mat1, mat2):
-    if len(mat1[0]) != len(mat2)):  # checking the no.of rows and columns of both matrix
+    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):  # checking the no.of rows and columns of both matrix
         print("Addition cannot be performed.")
     else:
+        print("Addition of two matrices is: ")
         mat3 = []
         for i in range(0, len(mat1)):
             subMat1 = []
@@ -56,6 +69,7 @@ def subMat(mat1, mat2):
     if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):  # checking the no.of rows and columns of both matrix
         print("Subtraction cannot be performed.")
     else:
+        print("Subtraction of two matrices is: ")
         mat3 = []
         for i in range(0, len(mat1)):
             subMat2 = []
@@ -63,18 +77,6 @@ def subMat(mat1, mat2):
                 subMat2.append(mat1[i][j] - mat2[i][j])
             mat3.append(subMat2)
         return mat3
-
-
-def createMat(mat):
-    row = int(input("Enter no.of rows: "))
-    col = int(input("Enter no.of columns: "))
-    for i in range(0, row):
-        subMat1 = []
-        for j in range(0, col):
-            subMat1.append(int(input("Enter number: ")))
-        mat.append(subMat1)
-        print()
-    return mat
 
 
 def multiUtil(mat1, mat2, i, j):
@@ -85,13 +87,14 @@ def multiUtil(mat1, mat2, i, j):
 
 
 def multiMat(mat1, mat2):
-    if len(mat1) != len(mat2) or len(mat1[0]) != len(mat2[0]):
+    if len(mat1[0]) != len(mat2):
         print("Multiplication cannot be performed.")
     else:
+        print("Multiplication of two matrix is: ")
         mat3 = []
         for i in range(0, len(mat1)):
             subMat3 = []
-            for j in range(0, len(mat1[0])):
+            for j in range(0, len(mat2[0])):
                 subMat3.append(multiUtil(mat1, mat2, i, j))
             mat3.append(subMat3)
         return mat3
@@ -101,9 +104,10 @@ def transpose(mat):
     if len(mat) != len(mat[0]):
         print("Transpose cannot be calculated.")
     else:
+        print("The transpose of the mat is: ")
         for i in range(0, int(len(mat) / 2)):
             for j in range(0, len(mat[0])):
-                if (i != j):
+                if i != j:
                     temp = mat[i][j]
                     mat[i][j] = mat[j][i]
                     mat[j][i] = temp
@@ -122,7 +126,7 @@ def transpose(mat):
 
 # # Calculating and printing the factorial of n.
 # n=int(input("Enter the value of n: "))
-# print("The factorial of", n, "is", fact(n))	
+# print("The factorial of", n, "is", fact(n))
 
 # Adding two matrix.
 mat1 = []
@@ -135,13 +139,13 @@ mat3 = addMat(mat1, mat2)
 mat4 = subMat(mat1, mat2)
 mat5 = multiMat(mat1, mat2)
 
-print("Addition of two matrices is: ")
-printMat(mat3)
-print("Subtraction of two matrices is: ")
-printMat(mat4)
+printMat(mat3)  # Addition.
 
-print("Multiplication of two matrix is: ")
-printMat(mat5)
+printMat(mat4)  # Subtraction.
 
-print("The transpose of the mat1 is: ")
-printMat(transpose(mat1))
+printMat(mat5)  # Multiplication.
+
+print("The transpose of matrix 1: ")
+printMat(transpose(mat1))   # Transpose of matrix 1.
+print("The transpose of matrix 2: ")
+printMat(transpose(mat1))   # Transpose of matrix 2.
