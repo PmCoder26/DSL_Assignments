@@ -108,7 +108,3 @@ print("The highest score of class is:", highScr(stdMarks))
 print("The lowest score of class is:", lowScr(stdMarks))
 print("The total no.of absent students for test are:", absent(stdMarks))
 print("The marks with highest frequency is: ", maxFreq(stdMarks))
-
-
-
-
