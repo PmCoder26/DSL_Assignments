@@ -8,29 +8,6 @@
 """
 
 
-def fact(n):
-    if (n == 1):
-        return 1
-    else:
-        return n * fact(n - 1)
-
-
-def fibo(n):
-    a = 0
-    b = 1
-    sum = 0
-    if n == 1:
-        print(a)
-    elif n == 2:
-        print(b)
-    else:
-        for i in range(0, n, 1):
-            print(sum, end=" ")
-            sum = a + b
-            a = b
-            b = sum
-
-
 def printMat(mat):
     if mat != None:
         for i in mat:
@@ -116,36 +93,30 @@ def transpose(mat):
         return mat
 
 
-# -------------------------------------------------->
+# ------------------------------------------------------------------------------->
 
-
-# #	Printing fibonacci series terms till nth term
-# n=int(input("Enter the no. of terms of fibonacci series that you want to print: "))
-# fibo(n)
-# print("Thankyou!!!")
-
-# # Calculating and printing the factorial of n.
-# n=int(input("Enter the value of n: "))
-# print("The factorial of", n, "is", fact(n))
 
 # Adding two matrix.
 mat1 = []
 mat2 = []
+
 print("Inputs for matrix 1")
 mat1 = createMat(mat1)
+
 print("Inputs for matrix 2")
 mat2 = createMat(mat2)
-mat3 = addMat(mat1, mat2)
-mat4 = subMat(mat1, mat2)
-mat5 = multiMat(mat1, mat2)
 
-printMat(mat3)  # Addition.
+mat3 = addMat(mat1, mat2)       # Addition of two matrices.
+mat4 = subMat(mat1, mat2)       # Subtraction of two matrices.
+mat5 = multiMat(mat1, mat2)     # Multiplication of two matrices.
 
-printMat(mat4)  # Subtraction.
+printMat(mat3)      # Addition.
 
-printMat(mat5)  # Multiplication.
+printMat(mat4)      # Subtraction.
+
+printMat(mat5)      # Multiplication.
 
 print("The transpose of matrix 1: ")
-printMat(transpose(mat1))   # Transpose of matrix 1.
+printMat(transpose(mat1))       # Transpose of matrix 1.
 print("The transpose of matrix 2: ")
-printMat(transpose(mat1))   # Transpose of matrix 2.
+printMat(transpose(mat2))       # Transpose of matrix 2.

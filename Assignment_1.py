@@ -8,6 +8,7 @@
             b) List of students who play either cricket or badminton but not both
             c) Number of students who play neither cricket nor badminton
             d) Number of students who play cricket and football but not badminton.
+    (Note - While realizing the group, duplicate entries should be avoided. Do not use built-in functions)
 """
 
 
@@ -16,6 +17,18 @@ def createList(list):
     for i in range(0, n):
         list.append(input("Name: "))
     return list
+
+
+def rmDupli(list):
+    list1=[]
+    for i in range(0, len(list)-1):
+        for j in range(i+1, len(list)):
+            if(list[i]==list[j]):
+                list[j]=-1
+    for i in range(0, len(list)):
+        if(list[i]!=-1):
+            list1.append(list[i]);
+    return list1
 
 
 def isIn(list, ply):
@@ -81,6 +94,12 @@ listB = createList(listB)
 print("Creating list of players playing Football-")
 listC = createList(listC)
 
+# removing the duplicates if present in the list.
+listA=rmDupli(listA)
+listB=rmDupli(listB)
+listC=rmDupli(listC)
+
+# printing the lists of players in their respective games.
 print("The lists of players are: ")
 print("Cricket Players:", listA)
 print("Badminton Players:", listB)
@@ -91,3 +110,4 @@ print("The students who play both cricket and badminton are:", intersection(list
 print("Students who play neither cricket nor badminton is:", (nCnB(listA, listB, listC)))
 print("Number of students who play neither cricket nor badminton is:", len(nCnB(listA, listB, listC)))
 print("Number of students who play cricket and football but not badminton is:", len(CAndFNotB(listA, listB, listC)))
+
