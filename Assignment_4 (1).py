@@ -94,8 +94,9 @@ print("List of marks:", list)   # Displaying list of marks.
 
 # Sorting the list using bubble sort and displaying sorted list.
 print("Sorted marklist using bubble sort is:", bubbleSort(list))
-# Sorted the list using selection sort and displaying the sorted list.
-print("Sorted marklist using selection sort is:", selectionSort(list))
-
+# Sorting the list using selection sort.
+list=selectionSort(list)
+# Displaying the sorted list.
+print("Sorted marklist using selection sort is:", list)
 # calling the function to find the top 5 scores. 
 get_best_5(list)
