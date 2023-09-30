@@ -1,32 +1,35 @@
-# Assignment-1.
+# Assignment-3.
 
 """
-    In second year computer engineering class, group A student’s play cricket, group B
-    students play badminton and group C students play football.
-    Write a Python program using functions to compute following: -
-            a) List of students who play both cricket and badminton
-            b) List of students who play either cricket or badminton but not both
-            c) Number of students who play neither cricket nor badminton
-            d) Number of students who play cricket and football but not badminton.
-    (Note - While realizing the group, duplicate entries should be avoided. Do not use built-in functions)
+        In Second year Computer Engineering class of M students, set A of students play cricket and set B of students play
+        badminton.
+        Write python program to find and display-
+            A. Set of students who play either cricket or badminton or both
+            B. Set of students who play both cricket and badminton
+            C. Set of students who play only cricket
+            D. Set of students who play only badminton
+            E. Number of students who play neither cricket nor badminton
 """
 
 
+# -------------------------------------------------------------------------------------------------------------------------------------->
+
+# -------------------------------------------------------------------------------------------------------------------------------------->
 def createList(list):
-    n = int(input("Enter the no.of players: "))
+    n = int(input("Enter the no.of students: "))
     for i in range(0, n):
         list.append(input("Name: "))
     return list
 
 
 def rmDupli(list):
-    list1=[]
-    for i in range(0, len(list)-1):
-        for j in range(i+1, len(list)):
-            if(list[i]==list[j]):
-                list[j]=-1
+    list1 = []
+    for i in range(0, len(list) - 1):
+        for j in range(i + 1, len(list)):
+            if (list[i] == list[j]):
+                list[j] = -1
     for i in range(0, len(list)):
-        if(list[i]!=-1):
+        if (list[i] != -1):
             list1.append(list[i]);
     return list1
 
@@ -65,49 +68,68 @@ def intersection(list4, list5):
     return list6
 
 
-def nCnB(list4, list5, list6):
-    list7 = []
-    for i in range(0, len(list6)):
-        if isNotIn(list4, list6[i]) and isNotIn(list5, list6[i]):
-            list7.append(list6[i])
-    return list7
+def onlyCkt(listA, listB):
+    oC = []
+    common = intersection(listA, listB)
+    for i in listA:
+        if isNotIn(common, i):
+            oC.append(i)
+        else:
+            continue
+    return oC
 
 
-def CAndFNotB(list1, list2, list3):
-    list4 = intersection(list1, list3)
-    list5 = []
-    for i in range(0, len(list4)):
-        if isNotIn(list2, list4[i]):
-            list5.append(list4[i])
-    return list5
+def onlyBdm(listA, listB):
+    oB = []
+    common = intersection(listA, listB)
+    for i in listB:
+        if isNotIn(common, i):
+            oB.append(i)
+        else:
+            continue
+    return oB
 
 
+def nCnB(stList, listA, listB):
+    ans = []
+    allPlys = union(listA, listB)
+    for i in stList:
+        if isNotIn(allPlys, i):
+            ans.append(i)
+        else:
+            continue
+    return ans
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------>
+
+# ------------------------------------------------------------------------------------------------------------------------------------>
+stList = []  # Total no.of students.
 listA = []  # Cricket players.
 listB = []  # Badminton players.
-listC = []  # Football players.
 
-# creating the lists of players via user input.
+# creating the lists of players and total students via user input.
+
+print("Creating the list of total no.of students-")
+stList = createList(stList)
 print("Creating list of players playing Cricket-")
 listA = createList(listA)
 print("Creating list of players playing Badminton-")
 listB = createList(listB)
-print("Creating list of players playing Football-")
-listC = createList(listC)
 
 # removing the duplicates if present in the list.
-listA=rmDupli(listA)
-listB=rmDupli(listB)
-listC=rmDupli(listC)
+listA = rmDupli(listA)
+listB = rmDupli(listB)
 
 # printing the lists of players in their respective games.
+print("The list of all students are: ", stList)
 print("The lists of players are: ")
 print("Cricket Players:", listA)
 print("Badminton Players:", listB)
-print("Football Players:", listC)
 
-print("The students who play either cricket or badminton but not both are:", union(listA, listB))
+print("The students who play either cricket or badminton or both are:", union(listA, listB))
 print("The students who play both cricket and badminton are:", intersection(listA, listB))
-print("Students who play neither cricket nor badminton is:", (nCnB(listA, listB, listC)))
-print("Number of students who play neither cricket nor badminton is:", len(nCnB(listA, listB, listC)))
-print("Number of students who play cricket and football but not badminton is:", len(CAndFNotB(listA, listB, listC)))
-
+print("The students who play only cricket are: ", onlyCkt(listA, listB))
+print("The students who play only cricket are: ", onlyBdm(listA, listB))
+print("The students who play neither cricket nor badminton are: ", nCnB(stList, listA, listB))
+# ------------------------------------------------------------------------------------------------------------------------------------>
