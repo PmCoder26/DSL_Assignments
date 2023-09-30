@@ -123,11 +123,11 @@ def transpose(mat):
         print("The transpose of the mat is: ")
         # iterating the half the no.of rows of matrix so that twice swapping of numbers
         # can be prevented.
-        for i in range(0, int(len(mat) / 2)):
+        for i in range(0, int(len(mat))):
             # iterating the columns of ith row.
             for j in range(0, len(mat[0])):
                 # it prevents the diagonal elements for swapping as it results in no change.
-                if i != j:
+                if i != j and i<j:
                     # performing the swapping operation.
                     temp = mat[i][j]
                     mat[i][j] = mat[j][i]
