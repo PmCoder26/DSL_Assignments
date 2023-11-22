@@ -4,105 +4,95 @@
 using namespace std;
 
 
-// Node class for the stack.
-static class Node{
+static class Stack{
+    // stack using the array.
+
+private:
+    int size;
+    int rear;
+    char st[];
+
 public:
-    char data;
-    Node *next;
-    Node(char data){
-        this->data=data;
-        this->next=NULL;
+    Stack(int size){
+        this->size=size;
+        st[size];
+        rear=-1;
     }
+    // function to check whether the stack is empty or not.
+    bool isEmpty(){
+        return rear==-1;
+    }
+    // function to check whether the stack is full or not.
+    bool isFull(){
+        return rear==size-1;
+    }
+    // function to push data in the stack.
+    void push(char c){
+        if(isFull()){
+            cout<<"The stack is completely full!"<<endl;
+        }
+        else{
+            st[++rear]=c;
+        }
+    }
+    // function to pop data from the stack.
+    char pop(){
+        if(isEmpty()){
+            cout<<"The stack is empty!"<<endl;
+        }
+        else{
+            char c=st[rear--];
+            return c;
+        }
+    }
+    // function to peek the element from the stack.
+    char peek(){
+        if(isEmpty()){
+            cout<<"The stack is empty!"<<endl;
+            return ' ';
+        }
+        else{
+            return st[rear];
+        }
+    }
+
 };
 
-static Node *head=NULL;
-
-// function to check whether the stack is empty or not.
-static bool isEmpty(){
-    return head==NULL;
-}
-
-// function to push data in the stack.
-static void push(char c){
-    if(isEmpty()){
-        head=new Node(c);
-    }
-    else{
-        Node *newNode=new Node(c);
-        newNode->next=head;
-        head=newNode;
-    }
-}
-
-// function to pop data from the stack.
-static char pop(){
-    if(isEmpty()){
-        cout<<"The stack is empty!"<<endl;
-    }
-    else{
-        char c=head->data;
-        head=head->next;
-        return c;
-    }
-}
-
-// function to peek the element from the stack.
-static char peek(){
-    if(isEmpty()){
-        cout<<"The stack is empty!"<<endl;
-        return ' ';
-    }
-    else{
-        return head->data;
-    }
-}
-
-// function to print the stack.
-static void printStack(){
-    if(isEmpty()){
-        cout<<"The stack is empty!"<<endl;
-        return;
-    }
-    else{
-        Node *curr=head;
-        while(curr!=NULL){
-            cout<<curr->data<<" ";
-            curr=curr->next;
-        }
-        cout<<endl;
-    }
-}
-
 // function to check the valid parenthesis.
-bool isValidParenthesis(string exp){
+bool isValidParenthesis(Stack st, string exp){
     if(exp.length()==0){
         return true;
     }
     else{
         for(int x=0; x<exp.length(); x++){
             char c=exp[x];
-            if(c=='[' || c=='{' || c=='('){
-                push(c);
+            // if the character is the alphabets or operators then skip the iteration.
+            if(c!='[' && c!='{' && c!='(' && c!=')' && c!='}' && c!=']'){
+                continue;
             }
-            else{
-                // if the stack is empty, hence no match found for any closing bracket.
-                if(isEmpty()){
-                    return false;
-                }
-                else{
-                    if((peek()=='{' && c=='}') || (c==']' && peek()=='[') || (peek()=='(' && c==')')){
-                        // as match is found then remove it from the stack for further pair checking.
-                        pop();
-                    }
-                    else{
+            else {
+                if (c == '[' || c == '{' || c == '(') {
+                    st.push(c);
+                } else {
+                    // if the stack is empty, hence no match found for any closing bracket.
+                    if (st.isEmpty()) {
                         return false;
+                    } else {
+                        // the current upper element in the stack.
+                        char curr = st.peek();
+                        if ((curr == '{' && c == '}') || (c == ']' && curr == '[') || (curr == '(' && c == ')')) {
+                            // as match is found then remove it from the stack for further pair checking.
+                            st.pop();
+                        } else {
+                            return false;
+                        }
                     }
                 }
             }
         }
         // if the stack is completely empty, that means the expression is valid
         // and all the parenthesis pairs have been matched and popped from the stack.
-        if(isEmpty()){
+        if(st.isEmpty()){
             return true;
         }
         else{
@@ -116,18 +106,22 @@ int main(){
     int choice=1;
     try {
         while(choice==1) {
-            head = NULL;
+            int size;
+            cout<<"Enter the size of the stack: ";
+            cin>>size;
+            Stack st(size);
             string exp;
             cout << "Enter the expression:";
             cin >> exp;
 
             // checking the parenthesis.
-            int v = isValidParenthesis(exp);
+            int v = isValidParenthesis(st, exp);
             if (v == 0) {
                 cout << "The validity of the expression is: false" << endl;
             } else {
                 cout << "The validity of the expression is: true" << endl;
             }
+
             cout<<"Do you want to continue the program?(1. Yes, 2. No)"<<endl;
             cout<<"Your Response: ";
             cin>>choice;
@@ -139,15 +133,7 @@ int main(){
     catch(int choice){
         cout<<"Invalid choice!"<<endl;
     }
-
-
-
-
-
-
-
-
-
-
+    
+    
     return 0;
 }
