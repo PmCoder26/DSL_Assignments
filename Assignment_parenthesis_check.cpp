@@ -1,7 +1,17 @@
 
+/*
+        Problem Statement:
+            In any programming language mostly syntax error occurs
+            due to unbalancing delimiter uch as (), {}, [].
+            Write c++ program using stack to check whether given expression
+            is well parenthesised or not.
+
+ */
+
 #include<iostream>
 #include<string>
 using namespace std;
+
 
 
 static class Stack{
@@ -80,8 +90,10 @@ bool isValidParenthesis(Stack st, string exp){
                     } else {
                         // the current upper element in the stack.
                         char curr = st.peek();
-                        if ((curr == '{' && c == '}') || (c == ']' && curr == '[') || (curr == '(' && c == ')')) {
-                            // as match is found then remove it from the stack for further pair checking.
+                        if ((curr == '{' && c == '}') || (c == ']' && curr == '[')
+                        || (curr == '(' && c == ')')) {
+                            // as match is found then remove it from the stack
+                            // for further pair checking.
                             st.pop();
                         } else {
                             return false;
@@ -133,7 +145,7 @@ int main(){
     catch(int choice){
         cout<<"Invalid choice!"<<endl;
     }
-    
-    
+
+
     return 0;
 }
